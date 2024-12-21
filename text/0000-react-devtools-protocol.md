@@ -4,22 +4,19 @@
 
 # Summary
 
-Brief explanation of the feature.
+Introduce a standardized "React Devtools Protocol" that exposes structured, production-friendly observability and profiling data directly from React’s internals, enabling third-party tools to monitor and diagnose performance at scale.
 
 # Basic example
 
-If the proposal involves a new or changed API, include a basic code example.
-Omit this section if it's not applicable.
+idk yet
 
 # Motivation
 
-Why are we doing this? What use cases does it support? What is the expected
-outcome?
+Current React debugging and profiling tools, while excellent for development, lack first-class support for deep, production-level insights. Third-party solutions resort to internal APIs or unsupported hooks, causing fragility as React evolves. A stable protocol would:
 
-Please focus on explaining the motivation so that if this RFC is not accepted,
-the motivation could be used to develop alternative solutions. In other words,
-enumerate the constraints you are trying to solve without coupling them too
-closely to the solution you have in mind.
+- Provide real-time, structured insights into component render costs and state transitions.
+- Support production observability use cases without relying on undocumented internals.
+- Encourage a richer ecosystem of performance and diagnostic tools, all aligned with React’s roadmap.
 
 # Detailed design
 
@@ -31,36 +28,23 @@ defined here.
 
 # Drawbacks
 
-Why should we *not* do this? Please consider:
-
-- implementation cost, both in term of code size and complexity
-- whether the proposed feature can be implemented in user space
-- the impact on teaching people React
-- integration of this feature with other existing and planned features
-- cost of migrating existing React applications (is it a breaking change?)
-
-There are tradeoffs to choosing any path. Attempt to identify them here.
+- Additional complexity in the React codebase to maintain a stable protocol.
+- Potential learning curve for developers integrating with or relying on these new capabilities.
+- Extra surface area for API versioning and compatibility concerns.
 
 # Alternatives
 
-What other designs have been considered? What is the impact of not doing this?
+- Continuing to rely on React DevTools’ unofficial internals.
+- Patching React at runtime, which is fragile and discouraged.
+- Manually instrumenting components, which doesn’t scale and requires code changes.
 
 # Adoption strategy
 
-If we implement this proposal, how will existing React developers adopt it? Is
-this a breaking change? Can we write a codemod? Should we coordinate with
-other projects or libraries?
+The protocol could start as an experimental API behind a feature flag. Early adopters (e.g., performance monitoring tools) would provide feedback before a stable release. This should not be a breaking change; existing apps would remain unaffected unless they opt in.
 
 # How we teach this
 
-What names and terminology work best for these concepts and why? How is this
-idea best presented? As a continuation of existing React patterns?
-
-Would the acceptance of this proposal mean the React documentation must be
-re-organized or altered? Does it change how React is taught to new developers
-at any level?
-
-How should this feature be taught to existing React developers?
+Documentation would introduce the protocol as an optional layer for advanced tooling. Guides can show how to integrate with the protocol to gather performance data, using simple code snippets and comparisons with existing devtools workflows. The protocol would be framed as a natural extension for power users and ecosystem tools, not a required feature for general app development.
 
 # Unresolved questions
 
